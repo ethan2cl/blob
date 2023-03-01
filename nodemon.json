@@ -1,0 +1,8 @@
+{
+  "watch": ["./src/server"],
+  "exec": "ts-node -r tsconfig-paths/register --project tsconfig.server.json ./src/server",
+  "ext": "js,ts,json",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
