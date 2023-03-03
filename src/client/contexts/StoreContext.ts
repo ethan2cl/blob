@@ -1,4 +1,4 @@
 import React from "react";
-import { initialMobxStore, Store } from "../stores";
+import { StoreConstructorProps } from "../stores";
 
-export const StoreContext = React.createContext<Store>(initialMobxStore({}));
+export const StoreContext = React.createContext<StoreConstructorProps>({});
