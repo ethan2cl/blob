@@ -23,7 +23,9 @@ export const getServerSideProps: GetServerSideProps<DefaultAppPageProps> =
   async function () {
     return {
       props: {
-        initialMobxState: {},
+        initialMobxState: {
+          global: { username: "ethan" },
+        },
       },
     };
   };
