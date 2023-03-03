@@ -4,18 +4,31 @@
  * 2、加载全局的东西，如全局样式文件
  */
 
-import type { AppProps } from "next/app";
-import { AntGlobal, GlobalStyled, StyledTheme } from "@/client/styles";
+import { GlobalStyled } from "@/client/styles";
+import { DefaultLayout } from "@/client/components/Layout";
+import { BlobNextPage } from "@/shared";
+import Head from "next/head";
+import {
+  AntGlobalProvider,
+  MobxStoreProvider,
+  StyledThemeProvider,
+} from "@/client/providers";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: BlobNextPage) {
+  const Layout = Component.Layout || DefaultLayout;
   return (
-    <>
+    <MobxStoreProvider initialState={pageProps.initialMobxState}>
+      <Head>
+        <title>ethan hub</title>
+      </Head>
       <GlobalStyled />
-      <StyledTheme>
-        <AntGlobal>
-          <Component {...pageProps} />
-        </AntGlobal>
-      </StyledTheme>
-    </>
+      <StyledThemeProvider>
+        <AntGlobalProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </AntGlobalProvider>
+      </StyledThemeProvider>
+    </MobxStoreProvider>
   );
 }
