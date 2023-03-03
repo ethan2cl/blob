@@ -1,5 +1,5 @@
 {
-  "host": "",
+  "host": "180.163.84.163",
   "port": 3306,
   "user": "root",
   "password": "admin123",

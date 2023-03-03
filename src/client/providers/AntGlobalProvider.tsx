@@ -1,8 +1,7 @@
-import { ThemeProvider } from "styled-components";
-
 import zhCN from "antd/locale/zh_CN";
 import { ConfigProvider } from "antd";
 import { ThemeConfig } from "antd/lib/config-provider";
+import { ComponentWithChildren } from "@/shared";
 
 const theme: ThemeConfig = {
   token: {
@@ -10,7 +9,7 @@ const theme: ThemeConfig = {
   },
 };
 
-const AntGlobal = ({ children }: any) => {
+const AntGlobalProvider = ({ children }: ComponentWithChildren) => {
   return (
     <ConfigProvider theme={theme} locale={zhCN} componentSize="middle">
       {children}
@@ -18,4 +17,4 @@ const AntGlobal = ({ children }: any) => {
   );
 };
 
-export default AntGlobal;
+export default AntGlobalProvider;

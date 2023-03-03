@@ -20,7 +20,7 @@ nextApp
   // router setting
   .then(() => {
     router = express.Router();
-    app.use(globalConfig.BASE_URL, router);
+    app.use(BASE_URL, router);
     router.use("/api", apiRouter);
   })
   // listen
