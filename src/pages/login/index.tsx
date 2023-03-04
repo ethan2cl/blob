@@ -1,20 +1,53 @@
 import React, { useMemo, useState } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Col, Form, Input, notification, Row } from "antd";
 import { StyledWrapper } from "./styles";
-import { UserSchema } from "@/shared";
+import { ExpressResponseResult, UserSchema } from "@/shared";
+import { request } from "@/client/helpers";
+import { useRouter } from "next/router";
 
 const Login: React.FC = () => {
   const [type, setType] = useState<"login" | "register">("login");
   const isLogin = useMemo(() => type === "login", [type]);
+  const router = useRouter();
 
   const startRegister = (e: React.MouseEvent) => {
     e.preventDefault();
     setType("register");
   };
 
+  const login = async (values: UserSchema) => {
+    const data = await request.post<UserSchema, ExpressResponseResult>(
+      "/api/user/login",
+      values
+    );
+    if (!data.error) {
+      notification.success({ message: "登陆成功..." });
+      toHome(values.username);
+    }
+  };
+  const register = async (values: UserSchema) => {
+    const data = await request.post<
+      UserSchema,
+      ExpressResponseResult<UserSchema[]>
+    >("/api/user/register", values);
+    if (!data.error) {
+      notification.success({ message: "注册成功,登陆中..." });
+      toHome(values.username);
+    }
+  };
+
+  const toHome = (username: string) => {
+    // 登陆成功
+    router.replace("/");
+  };
+
   const onSubmit = (values: UserSchema) => {
-    console.log("Received values of form: ", values);
+    const strategy = {
+      login,
+      register,
+    };
+    strategy[type](values);
   };
 
   return (

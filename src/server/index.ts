@@ -13,14 +13,15 @@ nextApp
   // server setting
   .then(() => {
     app = express();
-    app.all("*", (req, res) => handle(req, res));
+    router = express.Router();
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
+    // waiting for bodyParse...
+    app.use(router);
+    app.get("*", (req, res) => handle(req, res));
   })
   // router setting
   .then(() => {
-    router = express.Router();
-    app.use(BASE_URL, router);
     router.use("/api", apiRouter);
   })
   // listen

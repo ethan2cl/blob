@@ -21,6 +21,12 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps<DefaultAppPageProps> =
   async function () {
+    // return {
+    //   redirect: {
+    //     destination: "/login",
+    //     permanent: false,
+    //   },
+    // };
     return {
       props: {
         initialMobxState: {

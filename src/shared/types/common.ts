@@ -30,3 +30,12 @@ export type TabItem = {
   key: string;
   Component: ComponentType;
 };
+
+export type ExpressResponseResult<T = any> = {
+  code: number;
+  data?: T;
+  error?: {
+    errorCode: number;
+    errorMessage: string;
+  };
+};
