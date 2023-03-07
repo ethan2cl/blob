@@ -1,12 +1,6 @@
 import { TabItem } from "@/shared";
-import { makeAutoObservable, when } from "mobx";
-import { v1 } from "uuid";
-
-const DEFAULT_TAB: TabItem = {
-  uuid: v1(),
-  key: "home",
-  Component: () => <>123</>,
-};
+import { makeAutoObservable } from "mobx";
+import { DEFAULT_TAB } from "../components/PageTabs";
 
 const uniqueTabs = ["home", "test1", "test2"];
 
@@ -29,9 +23,7 @@ class TabsStore {
   currentTabUUID!: string;
 
   get currentTab() {
-    return (
-      this.tabs.find((item) => item.uuid === this.currentTabUUID) || DEFAULT_TAB
-    );
+    return this.tabs.find((item) => item.uuid === this.currentTabUUID)!;
   }
 
   constructor(initialState?: TabsConstructorProps) {

@@ -4,10 +4,21 @@
 
 import { TabLayout } from "@/client/components/Layout";
 import { TabContent } from "@/client/components/PageTabs";
+// import { tokenHandler } from "@/client/helpers/tokenHandler";
 import { DefaultAppPageProps } from "@/shared";
 import { GetServerSideProps } from "next";
-
+import { useEffect, useState } from "react";
 const Home = () => {
+  // resolve UI dose not resolve
+  const [boolean, setBoolean] = useState(false);
+  useEffect(() => {
+    if (!boolean) {
+      setBoolean(true);
+    }
+  }, [boolean]);
+
+  if (!boolean) return false;
+
   return (
     <>
       <TabContent />
@@ -21,12 +32,6 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps<DefaultAppPageProps> =
   async function () {
-    // return {
-    //   redirect: {
-    //     destination: "/login",
-    //     permanent: false,
-    //   },
-    // };
     return {
       props: {
         initialMobxState: {

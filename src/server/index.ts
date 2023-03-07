@@ -1,4 +1,4 @@
-import nextApp, { handle } from "./lib/nextApp";
+import { nextApp, handle } from "./lib";
 import express, { Express, Router } from "express";
 import bodyParser from "body-parser";
 import apiRouter from "./router";
@@ -14,11 +14,12 @@ nextApp
   .then(() => {
     app = express();
     router = express.Router();
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
-    // waiting for bodyParse...
-    app.use(router);
-    app.get("*", (req, res) => handle(req, res));
+    app
+      .use(bodyParser.json())
+      .use(bodyParser.urlencoded({ extended: true }))
+      // waiting for bodyParse...
+      .use(router)
+      .get("*", (req, res) => handle(req, res));
   })
   // router setting
   .then(() => {

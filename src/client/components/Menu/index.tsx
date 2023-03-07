@@ -17,8 +17,6 @@ const Menu = () => {
       mode="inline"
       selectedKeys={[key]}
       onSelect={({ key }) => {
-        console.log(key);
-
         addTab({
           key,
           uuid: v1(),

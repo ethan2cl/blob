@@ -19,7 +19,9 @@ export const result = {
 export const querySync = async <
   R extends
     | RowDataPacket[][]
+    // select
     | RowDataPacket[]
+    // insert
     | OkPacket
     | OkPacket[]
     | ResultSetHeader
@@ -36,8 +38,4 @@ export const querySync = async <
       resolve(result);
     });
   });
-};
-
-export const querySyncInsert = async () => {
-  await querySync;
 };

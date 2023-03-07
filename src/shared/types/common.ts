@@ -1,4 +1,5 @@
 import { StoreConstructorProps } from "@/client/stores";
+import { NextFunction, Request, Response } from "express";
 import { AppProps } from "next/app";
 import React, { ComponentType } from "react";
 
@@ -39,3 +40,8 @@ export type ExpressResponseResult<T = any> = {
     errorMessage: string;
   };
 };
+
+// TODO: 弄明白前面两个泛型什么意思
+export type BlobRequest<D = any> = Request<any, any, D>;
+export type BlobResponse<D = any> = Response<D>;
+export type BlobNextFunction = NextFunction;

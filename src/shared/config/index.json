@@ -1,4 +1,4 @@
 {
   "BASE_URL": "http://localhost",
-  "PORT": "5555"
+  "PORT": "80"
 }

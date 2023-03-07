@@ -1,10 +1,27 @@
 import React, { useMemo, useState } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, notification, Row } from "antd";
-import { StyledWrapper } from "./styles";
-import { ExpressResponseResult, UserSchema } from "@/shared";
+import { UserSchema } from "@/shared";
 import { request } from "@/client/helpers";
 import { useRouter } from "next/router";
+import { tokenHandler } from "@/client/helpers/tokenHandler";
+import styled from "styled-components";
+
+const StyledWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  .login-container {
+    width: 300px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -100%);
+
+    .register-now {
+      margin-left: 10px;
+    }
+  }
+`;
 
 const Login: React.FC = () => {
   const [type, setType] = useState<"login" | "register">("login");
@@ -17,27 +34,25 @@ const Login: React.FC = () => {
   };
 
   const login = async (values: UserSchema) => {
-    const data = await request.post<UserSchema, ExpressResponseResult>(
-      "/api/user/login",
-      values
-    );
+    const data = await request.post<UserSchema, string>("/user/login", values);
     if (!data.error) {
       notification.success({ message: "登陆成功..." });
-      toHome(values.username);
-    }
-  };
-  const register = async (values: UserSchema) => {
-    const data = await request.post<
-      UserSchema,
-      ExpressResponseResult<UserSchema[]>
-    >("/api/user/register", values);
-    if (!data.error) {
-      notification.success({ message: "注册成功,登陆中..." });
-      toHome(values.username);
+      toHome();
     }
   };
 
-  const toHome = (username: string) => {
+  const register = async (values: UserSchema) => {
+    const data = await request.post<UserSchema, string>(
+      "/user/register",
+      values
+    );
+    if (!data.error) {
+      notification.success({ message: "注册成功,登陆中..." });
+      toHome();
+    }
+  };
+
+  const toHome = () => {
     // 登陆成功
     router.replace("/");
   };
