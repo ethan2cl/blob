@@ -20,6 +20,7 @@
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.1",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "mobx": "^6.8.0",
     "mobx-react": "^7.6.0",
     "mysql2": "^3.1.2",
@@ -34,6 +35,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.21.0",
     "@types/express": "^4.17.17",
+    "@types/express-session": "^1.17.6",
     "@types/styled-components": "^5.1.26",
     "@types/uuid": "^9.0.1",
     "babel-plugin-import": "^1.13.6",
