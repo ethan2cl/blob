@@ -20,7 +20,7 @@ export const login = async (
         result.error({ errorCode: 1001, errorMessage: "密码不正确!" })
       );
     }
-    response.send(result.success());
+    response.send(result.success(user));
   } else {
     response.send(
       result.error({ errorCode: 1002, errorMessage: `用户${username}不存在!` })
@@ -41,7 +41,7 @@ export const register = async (
     );
   } else {
     await addUser(request.body);
-    response.send(result.success());
+    response.send(result.success(user));
   }
   next();
 };

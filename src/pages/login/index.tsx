@@ -4,8 +4,8 @@ import { Button, Col, Form, Input, notification, Row } from "antd";
 import { UserSchema } from "@/shared";
 import { request } from "@/client/helpers";
 import { useRouter } from "next/router";
-import { tokenHandler } from "@/client/helpers/tokenHandler";
 import styled from "styled-components";
+import { useSubStore } from "@/client/hooks";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -24,6 +24,7 @@ const StyledWrapper = styled.div`
 `;
 
 const Login: React.FC = () => {
+  const { setUsername } = useSubStore("global");
   const [type, setType] = useState<"login" | "register">("login");
   const isLogin = useMemo(() => type === "login", [type]);
   const router = useRouter();
@@ -34,19 +35,24 @@ const Login: React.FC = () => {
   };
 
   const login = async (values: UserSchema) => {
-    const data = await request.post<UserSchema, string>("/user/login", values);
+    const data = await request.post<UserSchema, UserSchema>(
+      "/user/login",
+      values
+    );
     if (!data.error) {
+      setUsername(data.data?.username ?? "");
       notification.success({ message: "登陆成功..." });
       toHome();
     }
   };
 
   const register = async (values: UserSchema) => {
-    const data = await request.post<UserSchema, string>(
+    const data = await request.post<UserSchema, UserSchema>(
       "/user/register",
       values
     );
     if (!data.error) {
+      setUsername(data.data?.username ?? "");
       notification.success({ message: "注册成功,登陆中..." });
       toHome();
     }

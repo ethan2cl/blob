@@ -2,13 +2,12 @@ import { ComponentWithChildren } from "@/shared";
 import Menu from "../Menu";
 import { TabNav } from "../PageTabs";
 import { StyledContent, StyledHeader, StyledLayout } from "./styles";
+import Header from "./Header";
 
 const TabLayout = ({ children }: ComponentWithChildren) => {
   return (
     <StyledLayout>
-      <StyledHeader>
-        <div className="logo">Ethan的个人中心</div>
-      </StyledHeader>
+      <Header />
       <StyledContent>
         <div className="menu">
           <Menu />

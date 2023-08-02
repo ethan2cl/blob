@@ -46,12 +46,12 @@ const instance = axios.create({
 });
 
 const handleRequest = (config: InternalAxiosRequestConfig) => {
-  loading.showLoading();
+  // loading.showLoading();
   return config;
 };
 
 const handleResponse = (response: AxiosResponse) => {
-  loading.hideLoading();
+  // loading.hideLoading();
   if (response.data.error) {
     notification.error({ message: response.data.error.errorMessage });
   }
@@ -59,7 +59,7 @@ const handleResponse = (response: AxiosResponse) => {
 };
 
 const handleError = (err: any) => {
-  loading.hideLoading();
+  // loading.hideLoading();
   notification.error({ message: err.message });
   return err;
 };
