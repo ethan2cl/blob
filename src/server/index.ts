@@ -1,4 +1,4 @@
-import nextApp, { handle } from "./lib/nextApp";
+import { nextApp, handle, session } from "./lib";
 import express, { Express, Router } from "express";
 import bodyParser from "body-parser";
 import apiRouter from "./router";
@@ -13,21 +13,24 @@ nextApp
   // server setting
   .then(() => {
     app = express();
-    app.all("*", (req, res) => handle(req, res));
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
+    router = express.Router();
+    app
+      .use(session)
+      .use(bodyParser.json())
+      .use(bodyParser.urlencoded({ extended: true }))
+      // waiting for bodyParse...
+      .use(router)
+      .get("*", (req, res) => handle(req, res));
   })
   // router setting
   .then(() => {
-    router = express.Router();
-    app.use(BASE_URL, router);
     router.use("/api", apiRouter);
   })
   // listen
   .then(() => {
     app
       .listen(PORT, () => {
-        console.log(`server is running  ${BASE_URL}:${PORT}`);
+        console.log(`server is running ${BASE_URL}:${PORT}`);
       })
       .on("error", () => {
         process.exit();

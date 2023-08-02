@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: BlobNextPage) {
   return (
     <MobxStoreProvider initialState={pageProps.initialMobxState}>
       <Head>
-        <title>ethan hub</title>
+        <title>Ethan的个人中心</title>
       </Head>
       <GlobalStyled />
       <StyledThemeProvider>

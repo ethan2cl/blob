@@ -1,18 +1,13 @@
 import mysql, { Pool } from "mysql2";
 import config from "./config.json";
+let dbPool: Pool;
 
-let db = (() => {
-  let pool: Pool | undefined;
-  if (!pool) {
-    pool = mysql.createPool(config);
-    pool.query("select 1", (err, result) => {
-      if (err) {
-        return console.log(err.message);
-      }
-      console.log(`database ${config.database} connect successfully`, result);
-    });
+dbPool = mysql.createPool(config);
+dbPool.query("select 1", (err, result) => {
+  if (err) {
+    return console.log(err.message);
   }
-  return pool;
-})();
+  console.log(`database ${config.database} connect successfully`, result);
+});
 
-export default db;
+export default dbPool;

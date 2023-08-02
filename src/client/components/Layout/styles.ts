@@ -15,6 +15,10 @@ const StyledHeader = styled(Header)`
     font-weight: 600;
     letter-spacing: 1px;
   }
+
+  .login {
+    cursor: pointer;
+  }
 `;
 
 const StyledContent = styled(Content)`
